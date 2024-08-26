@@ -32,7 +32,7 @@ fun main() {
                     println()
                 }else {
                     listaCabinas.forEachIndexed { index, cabina -> //funcion que se ejecuta segun la cantidad
-                        println("${index + 1}. $cabina")           //de elementos que contenga la
+                        println("${index + 1}. $cabina")           //de elementos que contenga la lista
                     }
 
                     println("---------------------------------")
