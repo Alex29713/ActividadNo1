@@ -1,8 +1,10 @@
+import kotlin.random.Random
+
 fun main() {
     var listaCabinas: MutableList<String> = mutableListOf() //almacena nombres de las cabinas
     var preciosCabinas: MutableList<Int> = mutableListOf() // almacena los valores de la plata cobrada por cabina
     var llamadasCabinas: MutableList<Int> = mutableListOf() // almacena la cantidad de llamadas de cada cabina
-    var o1: Int = 0
+    var o1 = 0
 
 
     val local = 50
@@ -10,7 +12,7 @@ fun main() {
     val celular = 150
 
 
-    var min : Int = 0
+    var min : Int
     do{
         println()
         println("   Cabinas Telefónicas")
@@ -22,12 +24,19 @@ fun main() {
         println("5. Salir")
         println("---------------------------------")
         print("Digite una opción -> ")
-        o1 = readln().toInt()
+
+        try {
+            o1 = readln().toInt()                   // pide el dato y comprueba que sea un numero
+        } catch (e: NumberFormatException) {
+            println("Error: Entrada inválida. Por favor, digite un número.")
+            continue
+        }
+
         println("")
         when(o1) {
             1 -> {
                 println("-------Listado de Cabinas--------")
-                if (listaCabinas.isEmpty()) {
+                if (listaCabinas.isEmpty()) {   //comprueba que si haya cabinas
                     println("No hay cabinas creadas.")
                     println()
                 }else {
@@ -39,13 +48,28 @@ fun main() {
                     println("Seleccione La Cabina a ingresar")
                     println("Digite un numero negativo para salir")
 
-                    var o2 : Int = readln().toInt()
-                    if (o2 > 0 && o2 <= listaCabinas.size) {
+                    var o2 : Int
+                    try {
+                        o2  = readln().toInt()
+                    } catch (e: NumberFormatException) {
+                        println("Error: Entrada inválida. Por favor, digite un número.")
+                        continue
+                    }
+
+                    if (o2 > 0 && o2 <= listaCabinas.size) {  //comprueba que el dato este dentro del rango de 0 y el tamaño de la lista
                         println("1. Realizar llamada")
                         println("2. Mostrar Información")
                         println("3. Formatear Informacion")
                         println("Digite una opcion")
-                        var o3 : Int = readln().toInt()
+
+
+                        var o3 : Int
+                        try {
+                            o3  = readln().toInt()
+                        } catch (e: NumberFormatException) {
+                            println("Error: Entrada inválida. Por favor, digite un número.")
+                            continue
+                        }
 
                         when(o3){
                             1 ->{
@@ -57,7 +81,7 @@ fun main() {
                                 var LlamadaDistancia : Int = 0
                                 var LlamadaCelular : Int = 0
 
-                                var o4 : Int = 0
+                                var o4  = 0
 
                                 do {
                                     println("=========== TARIFAS DE LLAMADAS ===========")
@@ -68,23 +92,22 @@ fun main() {
                                     println("-------------------------------------------")
                                     println("Digite una opcion -> ")
 
-                                    o4 = readln().toInt()
 
-                                    if(o4 != 4 && o4 in 1..4) {
-                                        println("¿Cuantos minutos? -> ")
-                                        min = readln().toInt()
-                                        while (min <= 0){
-                                            println("Numero Invalido")
-                                            println("Vuelva a Digitar -> ")
-                                            min = readln().toInt()
-                                        }
-                                    }else if(o4 !in 1..4) {println("Numero Invalido! Vuelva a Digitar")}
+                                    try {
+                                        o4 = readln().toInt()
+                                    } catch (e: NumberFormatException) {
+                                        println("Error: Entrada inválida. Por favor, digite un número.")
+                                        continue
+                                    }
 
+                                    min = Random.nextInt(1,101) // asigna un numero al azar entre 1 y 100 para los minutos
+
+                                    if(o4 !in 1..4) {println("Numero Invalido! Vuelva a Digitar")} // muestra el error si el dato no esta en el rango de la lista
 
                                     when(o4){
                                         1 -> {
-                                            LlamadaLocal += min * local
-                                            llam1 += 1
+                                            LlamadaLocal += min * local  // crea una variable local y multiplica el valor de la llamada por el costo
+                                            llam1 += 1 // incrementa en 1 cada vez que se vuelve a llamar por la misma opcion
                                             preciosCabinas[3 * (o2 - 1)] += LlamadaLocal // se realiza un guardado segun el numero de cabina almacenado en listaCabinas de los precios de cada llamada por cabina
                                             llamadasCabinas[3 * (o2 - 1)] += 1          // se guarda de igual forma la cantidad de llamadas segun tipo local,distancia o celular
                                         }
@@ -139,7 +162,7 @@ fun main() {
                                 if (o2 in 1..listaCabinas.size) {
                                     val index = 3 * (o2 - 1)
                                     for (i in 0..2) {
-                                        preciosCabinas[index + i] = 0
+                                        preciosCabinas[index + i] = 0 // resetea los valores de los precios segun la posicion
                                         llamadasCabinas[index + i] = 0
                                     }
                                     println("Información de la cabina #$o2 ha sido formateada.")
@@ -149,7 +172,7 @@ fun main() {
 
                             }
                         }
-                    }else  if(Math.abs(o2) > listaCabinas.size && o2 > 0) println(" Error, no existe ese numero de Cabina")
+                    }else  if(Math.abs(o2) > listaCabinas.size && o2 > 0) println(" Error, no existe ese numero de Cabina") // si el valor es positivo y excede al numero maximo de cabinas, produce un error
 
 
 
@@ -194,28 +217,28 @@ fun main() {
                     println("====================================== Informe de Cabinas  ===========================================")
                     println("  Nombre   | Loc | Dis | Cel | Total Min | Total Cobrado |  Cantidad LLam |   Costo Promedio")
                     println("------------------------------------------------------------------------------------------------------")
-                var TotalLLamadas : Int = 0
-                var TotalCobrado : Int = 0
-                var TotalMinutos : Int = 0
-                var TotalProm : Double = 0.0
+                    var TotalLLamadas : Int = 0
+                    var TotalCobrado : Int = 0
+                    var TotalMinutos : Int = 0
+                    var TotalProm : Double = 0.0
 
 
-                listaCabinas.forEachIndexed { index, cabina ->
-                    val idx = index * 3
+                    listaCabinas.forEachIndexed { index, cabina ->
+                        val idx = index * 3
 
-                    val totalLlamadas = llamadasCabinas[idx] + llamadasCabinas[idx + 1] + llamadasCabinas[idx + 2]
-                    val totalCobrado = preciosCabinas[idx] + preciosCabinas[idx + 1] + preciosCabinas[idx + 2]
-                    val totalminutos = llamadasCabinas[idx] + llamadasCabinas[idx + 1] + llamadasCabinas[idx + 2]
-                    val prom : Double = if(totalminutos == 0) 0.0 else totalCobrado.toDouble()/totalminutos // comprueba que la division no este indeterminada
+                        val totalLlamadas = llamadasCabinas[idx] + llamadasCabinas[idx + 1] + llamadasCabinas[idx + 2]
+                        val totalCobrado = preciosCabinas[idx] + preciosCabinas[idx + 1] + preciosCabinas[idx + 2]
+                        val totalminutos = llamadasCabinas[idx] + llamadasCabinas[idx + 1] + llamadasCabinas[idx + 2]
+                        val prom : Double = if(totalminutos == 0) 0.0 else totalCobrado.toDouble()/totalminutos // comprueba que la division no este indeterminada
 
-                    TotalLLamadas += totalLlamadas
-                    TotalCobrado += totalCobrado
-                    TotalMinutos += totalminutos
-                    TotalProm += prom
+                        TotalLLamadas += totalLlamadas
+                        TotalCobrado += totalCobrado
+                        TotalMinutos += totalminutos
+                        TotalProm += prom
 
-                    println("${index + 1}. $cabina|  ${llamadasCabinas[idx]}  |  ${llamadasCabinas[idx + 1]}  |  ${llamadasCabinas[idx + 2]}  |" +
-                            "    $totalminutos      |     $totalCobrado      |       $totalLlamadas        |         $prom")
-                }
+                        println("${index + 1}. $cabina|  ${llamadasCabinas[idx]}  |  ${llamadasCabinas[idx + 1]}  |  ${llamadasCabinas[idx + 2]}  |" +
+                                "    $totalminutos      |     $totalCobrado      |       $totalLlamadas        |         $prom")
+                    }
                     println("=====================================================================================================")
                     println(" TOTAL COBRADO: $TotalCobrado |  TOTAL MINUTOS: $TotalMinutos  |  TOTAL LLAMADAS: $TotalLLamadas | Promedio Total: $TotalProm")
                 }
