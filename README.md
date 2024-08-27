@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/76c3b1df-2a52-4b2d-88d2-6c1b86abb26b)# Cabinas Telefónicas
+# Cabinas Telefónicas
 
 Este proyecto simula un sistema de cabinas telefónicas donde los usuarios pueden gestionar cabinas, realizar llamadas y obtener informes detallados de las llamadas realizadas. Está implementado en Kotlin.
 
