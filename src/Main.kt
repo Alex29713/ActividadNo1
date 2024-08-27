@@ -1,9 +1,9 @@
 import kotlin.random.Random
 
 fun main() {
-    var listaCabinas: MutableList<String> = mutableListOf() //almacena nombres de las cabinas
-    var preciosCabinas: MutableList<Int> = mutableListOf() // almacena los valores de la plata cobrada por cabina
-    var llamadasCabinas: MutableList<Int> = mutableListOf() // almacena la cantidad de llamadas de cada cabina
+    val listaCabinas: MutableList<String> = mutableListOf() //almacena nombres de las cabinas
+    val preciosCabinas: MutableList<Int> = mutableListOf() // almacena los valores de la plata cobrada por cabina
+    val llamadasCabinas: MutableList<Int> = mutableListOf() // almacena la cantidad de llamadas de cada cabina
     var o1 = 0
 
 
